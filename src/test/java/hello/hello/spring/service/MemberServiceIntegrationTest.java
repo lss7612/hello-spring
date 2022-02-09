@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @Transactional
 class MemberServiceIntegrationTest {
 
-    //테스트에서는 생성자로 인젝션하지 않는다.
+    //테스트에서는 생성자 주입하지 않아도된당.
     @Autowired MemberService memberService;
     @Autowired MemberRepository repository;
 
@@ -25,14 +25,14 @@ class MemberServiceIntegrationTest {
     void join() {
         //given
         Member member = new Member();
-        member.setName("hello");
+        member.setName("hello world");
 
         //when
         Long memberId = memberService.join(member);
 
         //then
         Member result = memberService.findOne(memberId).get();
-        Assertions.assertThat(member).isEqualTo(result);
+        Assertions.assertThat(member.getName()).isEqualTo(result.getName());
     }
 
     @Test

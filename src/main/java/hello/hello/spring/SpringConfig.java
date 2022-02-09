@@ -41,6 +41,7 @@ public class SpringConfig {
     public MemberRepository memberRepository(){
         //생성자 주입의 예
 //        return new MemoryMemberRepository();
+//        return new JdbcMemberRepository(dataSource);
         return new JdbcMemberRepository(dataSource);
     }
     
