@@ -1,15 +1,14 @@
 package hello.hello.spring;
 
 import hello.hello.spring.repository.JdbcMemberRepository;
+import hello.hello.spring.repository.JpaMemberRepository;
 import hello.hello.spring.repository.MemberRepository;
-import hello.hello.spring.repository.MemoryMemberRepository;
 import hello.hello.spring.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import javax.sql.DataSource;
-import javax.xml.crypto.Data;
+import javax.persistence.EntityManager;
 
 @Configuration
 public class SpringConfig {
@@ -23,11 +22,19 @@ public class SpringConfig {
     //config 파일로 스프링 빈으로 등록하는 경우는
     // 상황에 따라 구현클래스를 변경해야 하는 경우이다.
 
-    private DataSource dataSource;
+//    private DataSource dataSource;
+//
+//    @Autowired
+//    public SpringConfig(DataSource dataSource) {
+//        this.dataSource = dataSource;
+//    }
+    
+    //위 코드는 jpa에서는 Entity manager로 받아야함
+    private EntityManager em;
 
     @Autowired
-    public SpringConfig(DataSource dataSource) {
-        this.dataSource = dataSource;
+    public SpringConfig(EntityManager em) {
+        this.em = em;
     }
 
 
@@ -42,7 +49,8 @@ public class SpringConfig {
         //생성자 주입의 예
 //        return new MemoryMemberRepository();
 //        return new JdbcMemberRepository(dataSource);
-        return new JdbcMemberRepository(dataSource);
+//        return new JdbcMemberRepository(dataSource);
+        return new JpaMemberRepository(em);
     }
     
     //필드 주입의 예

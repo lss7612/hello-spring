@@ -2,6 +2,7 @@ package hello.hello.spring.repository;
 
 
 import hello.hello.spring.domain.Member;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 
 import javax.sql.DataSource;
@@ -14,6 +15,7 @@ public class JdbcMemberRepository implements MemberRepository {
 
     private final DataSource dataSource;
 
+    @Autowired
     public JdbcMemberRepository(DataSource dataSource) {
         this.dataSource = dataSource;
     }
