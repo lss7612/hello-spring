@@ -29,29 +29,37 @@ public class SpringConfig {
 //        this.dataSource = dataSource;
 //    }
     
-    //위 코드는 jpa에서는 Entity manager로 받아야함
-    private EntityManager em;
+//    //위 코드는 jpa에서는 Entity manager로 받아야함
+//    private EntityManager em;
+//
+//    @Autowired
+//    public SpringConfig(EntityManager em) {
+//        this.em = em;
+//    }
+
+    private final MemberRepository memberRepository;
 
     @Autowired
-    public SpringConfig(EntityManager em) {
-        this.em = em;
+    public SpringConfig(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
     }
 
 
     @Bean
     public MemberService memberService(){
         //생성자 주입의 예
-        return new MemberService(memberRepository());
+        return new MemberService(memberRepository);
     }
 
-    @Bean
-    public MemberRepository memberRepository(){
-        //생성자 주입의 예
-//        return new MemoryMemberRepository();
-//        return new JdbcMemberRepository(dataSource);
-//        return new JdbcMemberRepository(dataSource);
-        return new JpaMemberRepository(em);
-    }
+//    @Bean
+//    public MemberRepository memberRepository(){
+//        //생성자 주입의 예
+////        return new MemoryMemberRepository();
+////        return new JdbcMemberRepository(dataSource);
+////        return new JdbcMemberRepository(dataSource);
+////        return new JpaMemberRepository(em);
+//
+//    }
     
     //필드 주입의 예
     //단점: 중간에 인스턴스를 바꿔주거나 하는것이 불가능하다.
